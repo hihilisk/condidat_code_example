@@ -1,0 +1,38 @@
+$svg-list: "account", "mail", "facebook", "in", "instagram", "phone", "twitter", "link",
+"mail-orange", "facebook-orange", "in-orange", "instagram-orange",
+"phone-orange", "twitter-orange", "link-orange";
+$sizes-list: "16", "32";
+
+@mixin default-icon-style {
+  background-size: cover;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+}
+
+
+@mixin svgPath($svgName, $size) {
+  .icon-#{$svgName} {
+    background-image: url('../images/icons/#{$svgName}.svg');
+    @include default-icon-style;
+    $this: &;
+
+    &-#{$size} {
+      @extend #{$this};
+      height: #{$size}px;
+      width: #{$size}px;
+    }
+
+    &__btn {
+      @extend #{$this};
+      vertical-align: text-top;
+      margin-right: 12px;
+    }
+  }
+}
+@each $size in $sizes-list {
+  @each $svgName in $svg-list {
+    @include svgPath($svgName, $size);
+  }
+}
